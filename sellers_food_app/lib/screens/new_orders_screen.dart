@@ -34,9 +34,9 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("orders")
-              .where("status", isEqualTo: "normal")
-              .where("sellerUID",
-                  isEqualTo: sharedPreferences!.getString("uid"))
+              .where("status", isEqualTo: "Orderd")
+              // .where("sellerUID",
+              //     isEqualTo: sharedPreferences!.getString("uid"))
               .snapshots(),
           builder: (c, snapshot) {
             return snapshot.hasData
@@ -50,10 +50,11 @@ class _NewOrdersScreenState extends State<NewOrdersScreen> {
                                 whereIn: separateOrderItemIDs(
                                     (snapshot.data!.docs[index].data()!
                                         as Map<String, dynamic>)["productIDs"]))
-                            .where("sellerUID",
-                                whereIn: (snapshot.data!.docs[index].data()!
-                                    as Map<String, dynamic>)["uid"])
-                            .orderBy("publishedDate", descending: true)
+                    
+                            // .where("sellerUID",
+                            //     whereIn: (snapshot.data!.docs[index].data()!
+                            //         as Map<String, dynamic>)["uid"])
+                            // .orderBy("publishedDate", descending: true)
                             .get(),
                         builder: (c, snap) {
                           return snap.hasData
